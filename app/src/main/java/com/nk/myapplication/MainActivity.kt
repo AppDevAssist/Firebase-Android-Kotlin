@@ -3,9 +3,12 @@ package com.nk.myapplication
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import android.widget.Button
 import android.widget.TextView
+import android.widget.Toast
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
+import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.ValueEventListener
 import com.google.firebase.database.ktx.database
 import com.google.firebase.database.ktx.getValue
@@ -16,26 +19,53 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        // Write a message to the database
-        val database = Firebase.database
-        val myRef = database.getReference("message2")
-        val tv = findViewById<TextView>(R.id.textView)
-        myRef.setValue("Hello, World 2!")
+        val myRef = Firebase.database.reference
+        val userId = "userid-dummy"
 
-        // Read from the database
-        myRef.addValueEventListener(object: ValueEventListener {
+        val name = findViewById<TextView>(R.id.nameEditText)
+        val email = findViewById<TextView>(R.id.emailEditText)
 
-            override fun onDataChange(snapshot: DataSnapshot) {
-                // This method is called once with the initial value and again
-                // whenever data at this location is updated.
-                val value = snapshot.getValue<String>()
-                tv.text = value
+        val addButton = findViewById<Button>(R.id.addButton)
+        val updateButton = findViewById<Button>(R.id.updateButton)
+        val deleteButton = findViewById<Button>(R.id.deleteButton)
+        val readButton = findViewById<Button>(R.id.buttonRead)
+
+        addButton.setOnClickListener{
+            val userData = UserData(name.text.toString(), email.text.toString())
+
+            myRef.child("users").child(userId).setValue(userData).addOnSuccessListener {
+                Toast.makeText(this, "User data saved !", Toast.LENGTH_SHORT).show();
+            }.addOnFailureListener{
+
+            }
+        }
+
+        updateButton.setOnClickListener{
+            val userData = UserData(name.text.toString(), email.text.toString())
+
+            myRef.child("users").child(userId).updateChildren(userData.getMap()).addOnSuccessListener {
+                Toast.makeText(this, "User data updated !", Toast.LENGTH_SHORT).show();
+            }.addOnFailureListener{
+
             }
 
-            override fun onCancelled(error: DatabaseError) {
-                Log.w("MainActivity", "Failed to read value.", error.toException())
-            }
+        }
 
-        })
+        deleteButton.setOnClickListener{
+            myRef.child("users").child(userId).removeValue().addOnSuccessListener {
+                Toast.makeText(this, "User data deleted !", Toast.LENGTH_SHORT).show();
+            }.addOnFailureListener{
+
+            }
+        }
+
+        readButton.setOnClickListener{
+            myRef.child("users").child(userId).get().addOnSuccessListener {
+                Toast.makeText(this, "User data ${it.value}", Toast.LENGTH_SHORT).show();
+            }.addOnFailureListener{
+
+            }
+        }
+
     }
 }
