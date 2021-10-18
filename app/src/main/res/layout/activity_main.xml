@@ -39,28 +39,26 @@
         android:layout_marginTop="20dp"
         android:text="Add"
         app:layout_constraintStart_toStartOf="@+id/emailEditText"
-        app:layout_constraintTop_toBottomOf="@+id/emailEditText" />
+        app:layout_constraintTop_toBottomOf="@+id/commentEditText" />
 
     <Button
         android:id="@+id/updateButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
         android:backgroundTint="#FF9800"
         android:text="Update"
         app:layout_constraintEnd_toStartOf="@+id/deleteButton"
         app:layout_constraintStart_toEndOf="@+id/addButton"
-        app:layout_constraintTop_toBottomOf="@+id/emailEditText" />
+        app:layout_constraintTop_toTopOf="@+id/addButton" />
 
     <Button
         android:id="@+id/deleteButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
         android:backgroundTint="#EC0755"
         android:text="Delete"
         app:layout_constraintEnd_toEndOf="@+id/emailEditText"
-        app:layout_constraintTop_toBottomOf="@+id/emailEditText" />
+        app:layout_constraintTop_toTopOf="@+id/updateButton" />
 
     <Button
         android:id="@+id/buttonRead"
@@ -72,5 +70,23 @@
         app:layout_constraintEnd_toEndOf="@+id/addButton"
         app:layout_constraintStart_toStartOf="@+id/addButton"
         app:layout_constraintTop_toBottomOf="@+id/addButton" />
+
+    <EditText
+        android:id="@+id/commentEditText"
+        android:layout_width="0dp"
+        android:layout_height="100dp"
+        android:layout_marginTop="62dp"
+        android:contentDescription="Add a comment"
+        app:layout_constraintEnd_toEndOf="@+id/emailEditText"
+        app:layout_constraintStart_toStartOf="@+id/emailEditText"
+        app:layout_constraintTop_toBottomOf="@+id/emailEditText" />
+
+    <Button
+        android:id="@+id/addCommentButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Add Comment"
+        app:layout_constraintStart_toStartOf="@+id/updateButton"
+        app:layout_constraintTop_toTopOf="@+id/buttonRead" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
