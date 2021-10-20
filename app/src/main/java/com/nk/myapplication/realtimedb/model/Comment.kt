@@ -1,4 +1,4 @@
-package com.nk.myapplication
+package com.nk.myapplication.realtimedb.model
 
 import com.google.firebase.database.Exclude
 
